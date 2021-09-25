@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"
+    />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <style></style>
+    <title>Document</title>
+
+    <style>
+      html,
+      body {
+        height: 100%;
+        /*scroll-behavior: smooth;*/
+      }
+      .cont {
+        height: 100%;
+        overflow: auto;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="cont">
+      <h1>1111</h1>
+    </div>
+
+    <script src="https://cdn.bootcdn.net/ajax/libs/jquery/1.4.0/jquery.js"></script>
+    <script>
+      let cacheNum = 0;
+      let time = Date.now();
+      setInterval(() => {
+        if (cacheNum > 100) return;
+        cacheNum++;
+        let a = document.createElement("p");
+        a.textContent = cacheNum;
+        document.querySelector(".cont").appendChild(a);
+        document.querySelector(".cont").scrollTo(0, 1000000000);
+      }, 0);
+      function que(t) {
+        console.log(Number.parseInt(t - time));
+        time = t;
+
+        window.scrollTo(0, document.body.scrollHeight);
+        window.requestAnimationFrame(que);
+      }
+      window.requestAnimationFrame(que);
+    </script>
+  </body>
+</html>
