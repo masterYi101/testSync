@@ -1,70 +1,107 @@
 <template>
-  <div class="div">
-    <slot v-for="(vnode, key) in dtSlots" :name="key" :vm="123"></slot>
+  <div>
+    <select-tree :tree-data="treeData" v-model="treeValue"> </select-tree>
+    <h1>{{ treeValue }}</h1>
   </div>
 </template>
 
 <script>
+import SelectTree from "@/components/SelectTree";
 export default {
   name: "HelloWorld",
-  props: {
-    msg: String
-  },
+  components: { SelectTree },
   data() {
     return {
-      rTime: 20,
-      sTime: 19,
-      cacheTime: 0
+      treeValue: [ { "name": "三级 2-2-1", "id": "2-2-1" } ],
+      treeData: [
+        {
+          name: "一级 1",
+          id: "1",
+          children: [
+            {
+              name: "二级 1-1",
+              id: "1-1",
+              children: [
+                {
+                  name: "三级 1-1-1",
+                  id: "1-1-1"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          name: "一级 2",
+          id: "2",
+          children: [
+            {
+              name: "二级 2-1",
+              id: "2-1",
+              children: [
+                {
+                  name: "三级 2-1-1",
+                  id: "2-1-1"
+                }
+              ]
+            },
+            {
+              name: "二级 2-2",
+              id: "2-2",
+              children: [
+                {
+                  name: "三级 2-2-1",
+                  id: "2-2-1"
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      tableData: [
+        {
+          date: "2016-05-02",
+          name: "王小虎",
+          address:
+            "上海市普陀区金沙江路 1518 弄上海市普陀区金沙江路 1518 弄上海市普陀区金沙江路 1518 弄上海市普陀区金沙江路 1518 弄上海市普陀区金沙江路 1518 弄上海市普陀区金沙江路 1518 弄"
+        },
+        {
+          date: "2016-05-04",
+          name: "王小虎",
+          address: "上海市普陀区金沙江路 1517 弄"
+        },
+        {
+          date: "2016-05-01",
+          name: "王小虎",
+          address: "上海市普陀区金沙江路 1519 弄"
+        },
+        {
+          date: "2016-05-03",
+          name: "王小虎",
+          address: "上海市普陀区金沙江路 1516 弄"
+        }
+      ]
     };
   },
-  computed: {
-    dtSlots() {
-      let res = {};
-      Object.keys(this.$scopedSlots).forEach(e => {
-        if (e === "aaa") {
-          res[e] = this.$slots[e];
-        }
-      });
-      return res;
-    }
-  },
-  mounted() {
-    console.log(this);
-  },
-  methods: {
-    test() {
-      console.log(1);
-    },
-    openTime() {
-      const test = () => {
-        const aaa = time => {
-          if (time - this.cacheTime >= 1000) {
-            this.rTime -= 1;
-            this.cacheTime = time;
-          }
-          window.requestAnimationFrame(aaa);
-        };
-        window.requestAnimationFrame(aaa);
-      };
-      test();
-      setInterval(() => {
-        this.sTime -= 1;
-      }, 1000);
-    },
-    openLang() {
-      for (let i = 1; i < 100000; i++) {
-        console.log(i);
-      }
-    }
-  }
+  computed: {},
+  watch: {},
+  methods: {}
 };
 </script>
 
 <style scoped lang="scss">
-@import url("//at.alicdn.com/t/font_2411645_2c7zja5bkxp.css");
-div {
-  display: flex;
-
-  color: red;
+.drag {
+  width: 200px;
+  resize: both;
+  position: relative;
+  &::after {
+    display: block;
+    content: "";
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    left: 0;
+    top: 0;
+    border: 1px solid red;
+  }
 }
 </style>

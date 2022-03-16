@@ -10,7 +10,7 @@
     <style></style>
     <title>Document</title>
 
-    <style>
+      <style>
       html,
       body {
         height: 100%;
@@ -26,27 +26,42 @@
     <div class="cont">
       <h1>1111</h1>
     </div>
-
-    <script src="https://cdn.bootcdn.net/ajax/libs/jquery/1.4.0/jquery.js"></script>
     <script>
-      let cacheNum = 0;
-      let time = Date.now();
-      setInterval(() => {
-        if (cacheNum > 100) return;
-        cacheNum++;
-        let a = document.createElement("p");
-        a.textContent = cacheNum;
-        document.querySelector(".cont").appendChild(a);
-        document.querySelector(".cont").scrollTo(0, 1000000000);
-      }, 0);
-      function que(t) {
-        console.log(Number.parseInt(t - time));
-        time = t;
-
-        window.scrollTo(0, document.body.scrollHeight);
-        window.requestAnimationFrame(que);
+      let activeEff;
+      function obsabse(obj) {
+        Object.keys(obj).forEach(key => {
+          let item = obj[key];
+          let dep = new Set();
+          Object.defineProperty(obj, key, {
+            get() {
+              if (activeEff) {
+                dep.add(activeEff);
+              }
+              return item;
+            },
+            set(val) {
+              item = val;
+              dep.forEach(item => item());
+            }
+          });
+        });
       }
-      window.requestAnimationFrame(que);
+      function effect(fn) {
+        activeEff = fn;
+        fn();
+        activeEff = null;
+      }
+      let obj = {
+        a: 123
+      };
+      obsabse(obj);
+      effect(() => {
+        console.log(obj.a);
+      });
+      obj.a++;
+      obj.a++;
+      obj.a++;
+      obj.a++;
     </script>
   </body>
 </html>
