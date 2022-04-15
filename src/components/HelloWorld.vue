@@ -1,90 +1,77 @@
 <template>
   <div>
-    <select-tree :tree-data="treeData" v-model="treeValue"> </select-tree>
-    <h1>{{ treeValue }}</h1>
+    <el-form :model="addForm">
+      <el-form-item prop="a">
+        <el-select multiple v-model="addForm.a">
+          <el-option :value="1" label="杀杀杀杀"></el-option>
+          <el-option :value="2" label="杀杀杀杀2222"></el-option>
+        </el-select>
+      </el-form-item>
+      <el-form-item prop="c">
+        <el-date-picker v-model="addForm.c"></el-date-picker>
+      </el-form-item>
+    </el-form>
+
+    <el-button @click="test">
+      测试更新按钮
+    </el-button>
   </div>
 </template>
 
 <script>
-import SelectTree from "@/components/SelectTree";
 export default {
   name: "HelloWorld",
-  components: { SelectTree },
   data() {
     return {
-      treeValue: [ { "name": "三级 2-2-1", "id": "2-2-1" } ],
-      treeData: [
-        {
-          name: "一级 1",
-          id: "1",
-          children: [
-            {
-              name: "二级 1-1",
-              id: "1-1",
-              children: [
-                {
-                  name: "三级 1-1-1",
-                  id: "1-1-1"
-                }
-              ]
-            }
-          ]
-        },
-        {
-          name: "一级 2",
-          id: "2",
-          children: [
-            {
-              name: "二级 2-1",
-              id: "2-1",
-              children: [
-                {
-                  name: "三级 2-1-1",
-                  id: "2-1-1"
-                }
-              ]
-            },
-            {
-              name: "二级 2-2",
-              id: "2-2",
-              children: [
-                {
-                  name: "三级 2-2-1",
-                  id: "2-2-1"
-                }
-              ]
-            }
-          ]
-        }
-      ],
-      tableData: [
-        {
-          date: "2016-05-02",
-          name: "王小虎",
-          address:
-            "上海市普陀区金沙江路 1518 弄上海市普陀区金沙江路 1518 弄上海市普陀区金沙江路 1518 弄上海市普陀区金沙江路 1518 弄上海市普陀区金沙江路 1518 弄上海市普陀区金沙江路 1518 弄"
-        },
-        {
-          date: "2016-05-04",
-          name: "王小虎",
-          address: "上海市普陀区金沙江路 1517 弄"
-        },
-        {
-          date: "2016-05-01",
-          name: "王小虎",
-          address: "上海市普陀区金沙江路 1519 弄"
-        },
-        {
-          date: "2016-05-03",
-          name: "王小虎",
-          address: "上海市普陀区金沙江路 1516 弄"
-        }
-      ]
+      addForm: {
+        a: [1],
+        c: null,
+        d: 2
+      }
     };
   },
+  // mounted() {
+  //   this.$watch(
+  //     "addForm.a",
+  //     function() {
+  //       console.log("a");
+  //     },
+  //     { immediate: true }
+  //   );
+  //   this.$watch(
+  //     "addForm.c",
+  //     function() {
+  //       console.log("c");
+  //     },
+  //     { immediate: true }
+  //   );
+  // },
   computed: {},
-  watch: {},
-  methods: {}
+  watch: {
+    "addForm.a": {
+      handler(newVal) {
+        console.log("aa", newVal);
+      },
+      immediate: true
+    },
+    "addForm.d": {
+      handler() {
+        console.log("ddd");
+      },
+      immediate: true
+    },
+    "addForm.c": {
+      handler() {
+        console.log("ccc");
+      },
+      immediate: true
+    }
+  },
+  methods: {
+    test() {
+      this.$set(this.addForm, "c", Math.random());
+    }
+  }
 };
 </script>
 
