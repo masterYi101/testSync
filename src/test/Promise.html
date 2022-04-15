@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Title</title>
+  </head>
+  <body>
+    <h1>测试promise</h1>
+
+    <script>
+      const data = [
+        { id: 1, parentId: null },
+        { id: 2, parentId: 1 },
+        { id: 3, parentId: 2 },
+        { id: 4, parentId: 3 },
+        { id: 5, parentId: 4 },
+        { id: 6, parentId: 5 }
+      ];
+      let newData = data.filter(item => {
+        if (item.parentId) {
+          const tarent = data.find(e => e.id === item.parentId);
+          if (tarent) {
+            if (Array.isArray(tarent.children) === false) {
+              tarent.children = [];
+            }
+            tarent.children.push(item);
+          }
+        } else {
+          return true;
+        }
+      });
+      console.log(newData);
+    </script>
+  </body>
+</html>

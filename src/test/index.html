@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"
+    />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <style></style>
+    <title>Document</title>
+
+      <style>
+      html,
+      body {
+        height: 100%;
+        /*scroll-behavior: smooth;*/
+      }
+      .cont {
+        height: 100%;
+        overflow: auto;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="cont">
+      <h1>1111</h1>
+    </div>
+    <script>
+      let activeEff;
+      function obsabse(obj) {
+        Object.keys(obj).forEach(key => {
+          let item = obj[key];
+          let dep = new Set();
+          Object.defineProperty(obj, key, {
+            get() {
+              if (activeEff) {
+                dep.add(activeEff);
+              }
+              return item;
+            },
+            set(val) {
+              item = val;
+              dep.forEach(item => item());
+            }
+          });
+        });
+      }
+      function effect(fn) {
+        activeEff = fn;
+        fn();
+        activeEff = null;
+      }
+      let obj = {
+        a: 123
+      };
+      obsabse(obj);
+      effect(() => {
+        console.log(obj.a);
+      });
+      obj.a++;
+      obj.a++;
+      obj.a++;
+      obj.a++;
+    </script>
+  </body>
+</html>
