@@ -1,6 +1,4 @@
-<template>
-
-</template>
+<template> </template>
 
 <script>
 export default {
@@ -8,14 +6,11 @@ export default {
   props: {},
   components: {},
   data() {
-    return {}
+    return { AAAI: 123 };
   },
   computed: {},
   methods: {}
-
-}
+};
 </script>
 
-<style scoped lang="scss">
-
-</style>
+<style scoped lang="scss"></style>
