@@ -5,6 +5,7 @@
   "scripts": {
     "serve": "vue-cli-service serve --open",
     "build": "vue-cli-service build",
+    "syncBase": "git remote add base https://github.com/newlichuan/Playground.git && git fetch base && git checkout -b localMerge base/main && git checkout main && git merge localMerge --allow-unrelated-histories",
     "style": "stylelint 'src/**/*.(vue|css|less)' --fix"
   },
   "dependencies": {
