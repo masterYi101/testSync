@@ -1,20 +1,10 @@
 <template>
   <div>
-    <el-form :model="addForm">
-      <el-form-item prop="a">
-        <el-select multiple v-model="addForm.a">
-          <el-option :value="1" label="杀杀杀杀"></el-option>
-          <el-option :value="2" label="杀杀杀杀2222"></el-option>
-        </el-select>
-      </el-form-item>
-      <el-form-item prop="c">
-        <el-date-picker v-model="addForm.c"></el-date-picker>
-      </el-form-item>
-    </el-form>
-
-    <el-button @click="test">
-      测试更新按钮
-    </el-button>
+    <el-popconfirm @confirm="test">
+      <el-button slot="reference">
+        测试更新按钮
+      </el-button>
+    </el-popconfirm>
   </div>
 </template>
 
@@ -69,7 +59,7 @@ export default {
   },
   methods: {
     test() {
-      this.$set(this.addForm, "c", Math.random());
+     debugger
     }
   }
 };
